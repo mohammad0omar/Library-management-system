@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Library" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=laptop-9fsm0gco\dataserver;Initial Catalog=Library;Integrated Security=True" SettingsObjectName="LibraryProject2.Properties.Settings" SettingsPropertyName="LibraryConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Selled" Member="Selleds">
+    <Type Name="Selled">
+      <Column Name="BId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="quantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Selled_Bill" Member="Bills" ThisKey="id" OtherKey="SId" Type="Bill" />
+      <Association Name="Book_Selled" Member="Book" ThisKey="BId" OtherKey="id" Type="Book" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Library" Member="Libraries">
+    <Type Name="Library">
+      <Column Name="id" Type="System.String" DbType="NVarChar(5) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="Library_Employee" Member="Employees" ThisKey="id" OtherKey="LId" Type="Employee" />
+      <Association Name="Library_Contain" Member="Contains" ThisKey="id" OtherKey="LId" Type="Contain" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Employee" Member="Employees">
+    <Type Name="Employee">
+      <Column Name="userName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="password" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="id" Type="System.String" DbType="NVarChar(5) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="LId" Type="System.String" DbType="NVarChar(5) NOT NULL" CanBeNull="false" />
+      <Association Name="Employee_Bill" Member="Bills" ThisKey="id" OtherKey="EId" Type="Bill" />
+      <Association Name="Library_Employee" Member="Library" ThisKey="LId" OtherKey="id" Type="Library" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Contain" Member="Contains">
+    <Type Name="Contain">
+      <Column Name="LId" Type="System.String" DbType="NVarChar(5) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="BId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="quatity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Library_Contain" Member="Library" ThisKey="LId" OtherKey="id" Type="Library" IsForeignKey="true" />
+      <Association Name="Book_Contain" Member="Book" ThisKey="BId" OtherKey="id" Type="Book" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Book" Member="Books">
+    <Type Name="Book">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="numberOfPages" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AId" Type="System.String" DbType="NVarChar(5) NOT NULL" CanBeNull="false" />
+      <Association Name="Book_Selled" Member="Selleds" ThisKey="id" OtherKey="BId" Type="Selled" />
+      <Association Name="Book_Contain" Member="Contains" ThisKey="id" OtherKey="BId" Type="Contain" />
+      <Association Name="Author_Book" Member="Author" ThisKey="AId" OtherKey="id" Type="Author" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Bill" Member="Bills">
+    <Type Name="Bill">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EId" Type="System.String" DbType="NVarChar(5) NOT NULL" CanBeNull="false" />
+      <Column Name="SId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Employee_Bill" Member="Employee" ThisKey="EId" OtherKey="id" Type="Employee" IsForeignKey="true" />
+      <Association Name="Selled_Bill" Member="Selled" ThisKey="SId" OtherKey="id" Type="Selled" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Author" Member="Authors">
+    <Type Name="Author">
+      <Column Name="id" Type="System.String" DbType="NVarChar(5) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="phoneNumber" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="Author_Book" Member="Books" ThisKey="id" OtherKey="AId" Type="Book" />
+    </Type>
+  </Table>
+</Database>
