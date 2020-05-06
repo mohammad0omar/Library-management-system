@@ -1,5 +1,5 @@
 # Library-management-system
-these are some screenshoots from the project their is still more page not sceen shooted
+these are some screenshoots from the project their are still more page not sceen shooted
 
 # main page
 ![picture](LibraryProject2/screenshoots/mainPage.png)
